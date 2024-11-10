@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useSelector } from "react-redux";
 import { selectUserStatus } from "@/redux/slices/userSlice";
@@ -9,13 +9,13 @@ import Logout from "./logout/page";
 export default function Home() {
   const status = useSelector(selectUserStatus);
 
-  if (status === 'loggedOut') {
-    return <Register />; 
+  if (status === "loggedOut") {
+    return <Register />;
   }
 
-  if (status === 'loggedIn') {
-    return <Logout />; 
+  if (status === "loggedIn") {
+    return <Logout />;
   }
 
-  return <Login />; 
+  return <Login />;
 }
