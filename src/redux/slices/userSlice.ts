@@ -5,35 +5,43 @@ interface User {
   email: string;
   password: string;
 }
+
+interface UserState {
+  users: User[];
+  loggedInUser: User | null;
+  status: "loggedOut" | "loggedIn";
+}
+
+const initialState: UserState = {
+  users: [],
+  loggedInUser: null,
+  status: "loggedOut",
+};
+
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    users: [],
-    loggedInUser: null,
-    status: "loggedOut",
-  } as any,
+  initialState,
   reducers: {
     register: (state, action) => {
       state.users.push(action.payload);
-
+      state.loggedInUser = action.payload;
       state.status = "loggedIn";
     },
+
     login: (state, action) => {
       const user = state.users.find(
-        (user: User) =>
+        (user) =>
           user.email === action.payload.email &&
           user.password === action.payload.password
       );
       if (user) {
         state.loggedInUser = user;
         state.status = "loggedIn";
-      } else {
-        state.status = "logginFailed";
       }
     },
+
     logout: (state) => {
       state.loggedInUser = null;
-
       state.status = "loggedOut";
     },
   },
@@ -41,7 +49,9 @@ const userSlice = createSlice({
 
 export const { login, logout, register } = userSlice.actions;
 
-export const selectUser = (state: any) => state.user.loggedInUser;
-export const selectUserStatus = (state: any) => state.user.status;
+export const selectUser = (state: { user: UserState }) =>
+  state.user.loggedInUser;
+export const selectUserStatus = (state: { user: UserState }) =>
+  state.user.status;
 
 export default userSlice.reducer;

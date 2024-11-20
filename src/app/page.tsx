@@ -16,6 +16,5 @@ export default function Home() {
   if (status === "loggedIn") {
     return <Logout />;
   }
-
   return <Login />;
 }

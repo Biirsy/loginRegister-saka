@@ -31,8 +31,7 @@ const Logout = () => {
       {loginUser ? (
         <>
           <h1>
-            Selamat datang Sir{" "}
-            <span className="user_name">{loginUser.name}</span>{" "}
+            Welcome Sir <span className="user_name">{loginUser.name}</span>{" "}
           </h1>
           <button className="logout_button" onClick={handleLogout}>
             Logout
